@@ -91,6 +91,20 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("should show intermediate result after multiple binary operands")
+    void  testScreenOutputAfterMultipleBinaryOperands(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+
+        String actual = calc.readScreen();
+        double expected = 35;
+
+        assertEquals(expected, Double.valueOf(actual));
+    }
+    @Test
     @DisplayName("should remove point if it is at the end")
     void testRemovePoint(){
         Calculator calc = new Calculator();
