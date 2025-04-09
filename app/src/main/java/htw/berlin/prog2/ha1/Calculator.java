@@ -14,6 +14,9 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    // Add a Logger instance
+    private Logger logger = new Logger();
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -34,6 +37,14 @@ public class Calculator {
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
+
+        logger.logButtonClick(String.valueOf(digit));
+        if (!latestOperation.isEmpty()){
+            logger.logCurrentEquation(String.valueOf(latestValue)+latestOperation+screen);
+        }else{
+            logger.logCurrentEquation(String.valueOf(screen));
+        }
+
     }
 
     /**
@@ -48,6 +59,9 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+
+        logger.logButtonClick("C");
+        logger.logCurrentEquation(String.valueOf(latestValue)+latestOperation+screen);
     }
 
     /**
@@ -62,6 +76,9 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation)  {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+
+        logger.logButtonClick(operation);
+        logger.logCurrentEquation(screen+latestOperation);
     }
 
     /**
@@ -84,6 +101,8 @@ public class Calculator {
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
+        logger.logButtonClick(operation);
+        logger.logCurrentEquation(screen);
     }
 
     /**
@@ -95,6 +114,9 @@ public class Calculator {
      */
     public void pressDotKey() {
         if(!screen.contains(".")) screen = screen + ".";
+
+        logger.logButtonClick(".");
+        logger.logCurrentEquation(screen);
     }
 
     /**
@@ -106,6 +128,13 @@ public class Calculator {
      */
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+
+        logger.logButtonClick("+/-");
+        if (!latestOperation.isEmpty()){
+            logger.logCurrentEquation(String.valueOf(latestValue)+latestOperation+screen);
+        }else {
+            logger.logCurrentEquation(screen);
+        }
     }
 
     /**
@@ -129,5 +158,8 @@ public class Calculator {
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+        logger.logButtonClick("=");
+        logger.logCurrentEquation(screen);
     }
 }
