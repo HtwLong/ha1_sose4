@@ -26,6 +26,22 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @DisplayName("should display result after subtracting a number from another number")
+    void testSubtraction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
     @Test
     @DisplayName("should display result after getting the square root of two")
     void testSquareRoot() {
