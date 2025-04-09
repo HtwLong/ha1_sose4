@@ -42,6 +42,40 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @DisplayName("should display result after multiplying two numbers")
+    void testMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("*");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "300";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @DisplayName("should display result after dividing a number by another")
+    void testDivision() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
     @Test
     @DisplayName("should display result after getting the square root of two")
     void testSquareRoot() {
@@ -56,6 +90,19 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should remove point if it is at the end")
+    void testRemovePoint(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressDotKey();
+        calc.pressEqualsKey();
+
+        String actual = calc.readScreen();
+        String expected = "5";
+
+        assertEquals(expected, actual);
+    }
     @Test
     @DisplayName("should display error when dividing by zero")
     void testDivisionByZero() {
