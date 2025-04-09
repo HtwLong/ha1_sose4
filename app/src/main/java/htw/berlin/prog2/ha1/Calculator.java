@@ -74,6 +74,22 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+        // TODO: Error, falls nach Division Null eingegeben wird
+        // TODO: Wenn es nicht der erste Operand ist, dann zeige Zwischenergebnis auf Bildschirm an
+        if(operation.matches("[x/]") && latestOperation.matches("[+-]") ){
+
+        } else if (!latestOperation.isEmpty()){
+            // printe zwischenergebnis auf screen
+            var result = switch(latestOperation) {
+                case "+" -> latestValue + Double.parseDouble(screen);
+                case "-" -> latestValue - Double.parseDouble(screen);
+                case "x" -> latestValue * Double.parseDouble(screen);
+                case "/" -> latestValue / Double.parseDouble(screen);
+                default -> throw new IllegalArgumentException();
+            };
+            screen = Double.toString(result);
+        }
+
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
 
